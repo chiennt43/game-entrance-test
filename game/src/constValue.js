@@ -1,6 +1,6 @@
 export const Notify = {
   Playing: "LET'S PLAY",
-  Lost: "GAME OVER",
+  Lose: "GAME OVER",
   Win: "ALL CLEARED",
 };
 export const PlayButton = {
@@ -16,3 +16,5 @@ export const POINT_SHOWING_DEFAULT = [
 export const TIME_DEFAULT = 0;
 export const NUMBER_CONTAINER_WIDTH = 700;
 export const NUMBER_CONTAINER_HEIGHT = 500;
+export const MAX_POINT_ALLOWED = 1000;
+export const NUMBER_ITEM_START = 1;

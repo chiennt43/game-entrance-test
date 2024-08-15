@@ -1,22 +1,23 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   labelStyle,
   valueStyle,
   buttonStyle,
-  numbersContainer,
   gameContainer,
-  numberItem,
 } from "./gameStyle";
 import {
   Notify,
   PlayButton,
   POINT_DEFAULT,
   TIME_DEFAULT,
-  NUMBER_CONTAINER_WIDTH,
-  NUMBER_CONTAINER_HEIGHT,
   POINT_SHOWING_DEFAULT,
+  MAX_POINT_ALLOWED,
+  NUMBER_ITEM_START,
 } from "./constValue";
 import NumberContainer from "./numberContainer";
+
+let numberShouldSelect = NUMBER_ITEM_START;
+let isAllowPlay = true;
 
 const GameHome = () => {
   const [notifyTitle, setNotifyTitle] = useState(Notify.Playing);
@@ -25,41 +26,71 @@ const GameHome = () => {
   const [playButtonTitle, setPlayButtonTitle] = useState(PlayButton.Play);
   const [pointShowing, setPointShowing] = useState(POINT_SHOWING_DEFAULT);
 
-  const getRandomPostion = (max) => {
-    return Math.floor(Math.random() * max);
-  };
-
   const playGame = () => {
     playButtonTitle === PlayButton.Play &&
       setPlayButtonTitle(PlayButton.Restart);
-
     const pointValue = [];
     for (let i = 0; i < point; i++) {
       pointValue.push({ value: i + 1, isSelected: false });
     }
+    isAllowPlay = true;
     setPointShowing(pointValue);
+    numberShouldSelect = NUMBER_ITEM_START;
+    setNotifyTitle(Notify.Playing);
   };
 
-  const numberOnClick = (itemValue) => {
-    const pointShowingUpdate = [...pointShowing];
-    pointShowingUpdate.forEach((item) => {
-      if (item.value === itemValue) {
-        item.isSelected = true;
+  const numberOnClick = useCallback(
+    (itemValue) => {
+      if (itemValue === numberShouldSelect) {
+        const pointShowingUpdate = [...pointShowing];
+        pointShowingUpdate.forEach((item) => {
+          if (item.value === itemValue && !item.isSelected) {
+            item.isSelected = true;
+          }
+        });
+        setPointShowing(pointShowingUpdate);
+        const isExistedItemNotSelected = pointShowingUpdate.some(
+          (item) => !item.isSelected
+        );
+        if (!isExistedItemNotSelected) {
+          setNotifyTitle(Notify.Win);
+          isAllowPlay = false;
+        }
+        numberShouldSelect++;
+      } else {
+        isAllowPlay = false;
+        setNotifyTitle(Notify.Lose);
       }
-    });
-    setPointShowing(pointShowingUpdate);
-  };
-
+    },
+    [pointShowing]
+  );
+  const notifyColor =
+    notifyTitle === Notify.Win
+      ? "green"
+      : notifyTitle === Notify.Lose
+      ? "red"
+      : "black";
   return (
     <div className="game-container" style={gameContainer}>
-      <h1 className="notify-title">{notifyTitle}</h1>
+      <h1 className="notify-title" style={{ color: notifyColor }}>
+        {notifyTitle}
+      </h1>
       <div className="point">
+        <h2 style={{ color: "#a3158a" }}>
+          Maximum Point for this Game is
+          <span style={{ fontSize: "30px" }}> {MAX_POINT_ALLOWED}</span>
+        </h2>
         <label style={labelStyle}>Point:</label>
         <input
+          type="number"
           style={valueStyle}
           name="point"
           value={point}
-          onChange={(e) => setPoint(e.target.value)}
+          onChange={(e) => {
+            0 <= e.target.value &&
+              e.target.value <= MAX_POINT_ALLOWED &&
+              setPoint(e.target.value);
+          }}
         />
       </div>
       <div className="time">
@@ -69,34 +100,13 @@ const GameHome = () => {
       <button className="play-button" style={buttonStyle} onClick={playGame}>
         {playButtonTitle}
       </button>
-      <NumberContainer></NumberContainer>
-      <section className="numbers-container" style={numbersContainer}>
-        {playButtonTitle === PlayButton.Restart &&
-          (() => {
-            let rows = [];
-            for (let i = 0; i < pointShowing.length; i++) {
-              const leftSpace = getRandomPostion(NUMBER_CONTAINER_WIDTH);
-              const topSpace = getRandomPostion(NUMBER_CONTAINER_HEIGHT);
-              rows.push(
-                <div
-                  key={i}
-                  style={{
-                    left: `${leftSpace}px`,
-                    top: `${topSpace}px`,
-                    background: `${
-                      pointShowing[i].isSelected ? "red" : "#d2dfd2"
-                    }`,
-                    ...numberItem,
-                  }}
-                  onClick={() => numberOnClick(pointShowing[i].value)}
-                >
-                  {pointShowing[i].value}
-                </div>
-              );
-            }
-            return rows;
-          })()}
-      </section>
+      <NumberContainer
+        playButtonTitle={playButtonTitle}
+        pointShowing={pointShowing}
+        isAllowPlay={isAllowPlay}
+        notifyTitle={notifyTitle}
+        numberOnClick={(e) => numberOnClick(e)}
+      />
     </div>
   );
 };

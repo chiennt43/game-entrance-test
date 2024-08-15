@@ -11,6 +11,8 @@ export const buttonStyle = {
   padding: "3px 50px",
   fontSize: "20px",
   marginTop: "10px",
+  background: "#4c9b77",
+  color: "white",
 };
 export const numbersContainer = {
   height: "550px",
@@ -23,9 +25,16 @@ export const numbersContainer = {
 export const numberItem = {
   position: "absolute",
   border: "1px solid",
-  padding: "10px",
+  padding: "10px 17px",
   color: "black",
   borderRadius: "50%",
   fontWeight: "bold",
   fontSize: "20px",
+};
+export const NotifyImage = {
+  width: "500px",
+  position: "absolute",
+  zIndex: 1500,
+  left: "100px",
+  top: "20px",
 };
