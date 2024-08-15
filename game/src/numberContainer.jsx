@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
 import {
   PlayButton,
@@ -10,6 +10,7 @@ import {
 import { numbersContainer, numberItem, NotifyImage } from "./gameStyle";
 import SuccessIcon from "../src/assets/images/sucess.png";
 import LoseIcon from "../src/assets/images/lose.jpg";
+import "../src/assets/styles/numberItem.css";
 
 function NumberContainer(props) {
   const {
@@ -49,9 +50,10 @@ function NumberContainer(props) {
             }
             rows.push(
               <div
-                class="number-item"
+                className="number-item"
                 key={i}
                 style={{
+                  display: pointShowing[i].isDisappeared ? "none" : "block",
                   left: `${pointShowing[i]["positionLeft"]}px`,
                   top: `${pointShowing[i]["positionTop"]}px`,
                   background: `${

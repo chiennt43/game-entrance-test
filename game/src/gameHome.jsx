@@ -4,6 +4,7 @@ import {
   valueStyle,
   buttonStyle,
   gameContainer,
+  inputStyle,
 } from "./gameStyle";
 import {
   Notify,
@@ -43,9 +44,13 @@ const GameHome = () => {
     (itemValue) => {
       if (itemValue === numberShouldSelect) {
         const pointShowingUpdate = [...pointShowing];
-        pointShowingUpdate.forEach((item) => {
+        pointShowingUpdate.forEach((item, i) => {
           if (item.value === itemValue && !item.isSelected) {
             item.isSelected = true;
+            setTimeout(() => {
+              pointShowingUpdate[i]["isDisappeared"] = true;
+              setPointShowing(pointShowingUpdate);
+            }, 800);
           }
         });
         setPointShowing(pointShowingUpdate);
@@ -83,7 +88,7 @@ const GameHome = () => {
         <label style={labelStyle}>Point:</label>
         <input
           type="number"
-          style={valueStyle}
+          style={inputStyle}
           name="point"
           value={point}
           onChange={(e) => {

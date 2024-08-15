@@ -7,12 +7,21 @@ export const labelStyle = {
   width: "200px",
 };
 export const valueStyle = { padding: "5px", fontSize: "20px" };
+export const inputStyle = {
+  background: "grey",
+  color: "white",
+  fontWeight: "bold",
+  padding: "5px",
+  fontSize: "20px",
+};
+
 export const buttonStyle = {
   padding: "3px 50px",
   fontSize: "20px",
   marginTop: "10px",
   background: "#4c9b77",
   color: "white",
+  borderRadius: "5px",
 };
 export const numbersContainer = {
   height: "550px",
