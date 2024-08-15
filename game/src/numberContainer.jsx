@@ -20,6 +20,7 @@ function NumberContainer(props) {
     isAllowPlay,
     notifyTitle,
   } = props;
+
   const getRandomPostion = (max) => {
     return Math.floor(Math.random() * max);
   };
@@ -74,9 +75,13 @@ function NumberContainer(props) {
     </section>
   );
 }
+
 NumberContainer.propTypes = {
   playButtonTitle: PropTypes.string,
   pointShowing: PropTypes.number,
+  numberOnClick: PropTypes.func,
+  isAllowPlay: PropTypes.bool,
+  notifyTitle: PropTypes.string,
 };
 
 export default memo(NumberContainer);

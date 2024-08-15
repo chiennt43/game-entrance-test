@@ -17,7 +17,7 @@ import {
 } from "./constValue";
 import NumberContainer from "./numberContainer";
 
-let numberShouldSelect = NUMBER_ITEM_START;
+let numberMustChoose = NUMBER_ITEM_START;
 let isAllowPlay = true;
 
 const GameHome = () => {
@@ -36,13 +36,13 @@ const GameHome = () => {
     }
     isAllowPlay = true;
     setPointShowing(pointValue);
-    numberShouldSelect = NUMBER_ITEM_START;
+    numberMustChoose = NUMBER_ITEM_START;
     setNotifyTitle(Notify.Playing);
   };
 
   const numberOnClick = useCallback(
     (itemValue) => {
-      if (itemValue === numberShouldSelect) {
+      if (itemValue === numberMustChoose) {
         const pointShowingUpdate = [...pointShowing];
         pointShowingUpdate.forEach((item, i) => {
           if (item.value === itemValue && !item.isSelected) {
@@ -61,7 +61,7 @@ const GameHome = () => {
           setNotifyTitle(Notify.Win);
           isAllowPlay = false;
         }
-        numberShouldSelect++;
+        numberMustChoose++;
       } else {
         isAllowPlay = false;
         setNotifyTitle(Notify.Lose);
