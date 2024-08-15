@@ -13,9 +13,19 @@ export const buttonStyle = {
   marginTop: "10px",
 };
 export const numbersContainer = {
-  height: "55vh",
-  with: "100vw",
+  height: "550px",
+  width: "750px",
   border: "3px solid",
   marginTop: "10px",
   background: "#f1f1f1",
+  position: "relative",
+};
+export const numberItem = {
+  position: "absolute",
+  border: "1px solid",
+  padding: "10px",
+  color: "black",
+  borderRadius: "50%",
+  fontWeight: "bold",
+  fontSize: "20px",
 };
