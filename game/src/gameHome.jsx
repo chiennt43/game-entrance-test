@@ -26,20 +26,20 @@ const GameHome = () => {
   const [point, setPoint] = useState(POINT_DEFAULT);
   const [playButtonTitle, setPlayButtonTitle] = useState(PlayButton.Play);
   const [pointShowing, setPointShowing] = useState(POINT_SHOWING_DEFAULT);
-  const [timeRemaining, settimeRemaining] = useState(0);
+  const [timeCounter, setTimeCounter] = useState(0);
   const [secs, setsecs] = useState(0);
 
   useEffect(() => {
-    if (timeRemaining === 0) return;
+    if (timeCounter === 0) return;
     intervalId = setInterval(() => {
-      settimeRemaining(timeRemaining + 1);
-      setsecs(timeRemaining / 10);
+      setTimeCounter(timeCounter + 1);
+      setsecs(timeCounter / 10);
     }, 100);
     return () => clearInterval(intervalId);
-  }, [timeRemaining]);
+  }, [timeCounter]);
 
   const playGame = () => {
-    settimeRemaining(1);
+    setTimeCounter(1);
     playButtonTitle === PlayButton.Play &&
       setPlayButtonTitle(PlayButton.Restart);
     const pointValue = [];
