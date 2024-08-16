@@ -30,6 +30,7 @@ export const numbersContainer = {
   marginTop: "10px",
   background: "#f1f1f1",
   position: "relative",
+  boxShadow: "10px 10px 10px grey",
 };
 export const numberItem = {
   position: "absolute",
@@ -46,4 +47,7 @@ export const NotifyImage = {
   zIndex: 1500,
   left: "100px",
   top: "20px",
+};
+export const topContainer = {
+  display: "flex",
 };

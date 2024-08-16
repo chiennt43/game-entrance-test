@@ -13,7 +13,6 @@ export const POINT_SHOWING_DEFAULT = [
   { value: 2, isSelected: false },
   { value: 3, isSelected: false },
 ];
-export const TIME_DEFAULT = 0;
 export const NUMBER_CONTAINER_WIDTH = 700;
 export const NUMBER_CONTAINER_HEIGHT = 500;
 export const MAX_POINT_ALLOWED = 1000;
